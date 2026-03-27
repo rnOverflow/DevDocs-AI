@@ -1,1 +1,12 @@
-This project is an AI-powered RAG system.
+This project is an AI-powered RAG (Retrieval-Augmented Generation) system.
+
+It works by:
+1. Taking user queries
+2. Retrieving relevant documents from a vector database
+3. Generating answers using a language model
+
+The backend is built using FastAPI.
+The system uses embeddings and vector search (ChromaDB) for retrieval.
+The frontend is a simple chat interface.
+
+This project helps users understand code or documents by asking questions in natural language.

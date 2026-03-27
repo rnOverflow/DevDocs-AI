@@ -1,13 +1,58 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RAG Chat</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: auto;
+        }
+        .chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+        .user { color: blue; }
+        .bot { color: green; }
+    </style>
+</head>
+<body>
+
+<h2>RAG Chat 🤖</h2>
+
+<div class="chat-box" id="chat"></div>
+
+<input type="text" id="query" placeholder="Ask something..." style="width:80%">
+<button onclick="askAI()">Send</button>
+
+<script>
+async function askAI() {
+    const query = document.getElementById("query").value;
+
+    const chatBox = document.getElementById("chat");
+
+    // show user message
+    chatBox.innerHTML += `<p class="user"><b>You:</b> ${query}</p>`;
+
+    const response = await fetch(`http://localhost:8000/ask?query=${encodeURIComponent(query)}`);
+    const data = await response.json();
+
+    // show AI response
+    chatBox.innerHTML += `<p>Thinking...</p>`;
+    chatBox.innerHTML += `<p class="bot"><b>AI:</b> ${data.answer}</p>`;
+    
+
+    // show sources
+    chatBox.innerHTML += `<p><i>Sources: ${data.sources.join(", ")}</i></p>`;
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    document.getElementById("query").value = "";
+}
+</script>
+
+</body>
 </html>

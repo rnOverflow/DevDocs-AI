@@ -125,3 +125,13 @@ xxhash==3.6.0
 yarl==1.23.0
 zipp==3.23.0
 zstandard==0.25.0
+langchain
+langchain-community
+langchain-core
+langchain-groq
+groq
+sentence-transformers
+chromadb
+fastapi
+uvicorn
+python-dotenv
